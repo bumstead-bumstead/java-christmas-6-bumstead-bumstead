@@ -1,10 +1,14 @@
 package christmas.view;
 
-import camp.nextstep.edu.missionutils.Console;
-
 public class InputView {
+    private final InputReader inputReader;
+
+    public InputView(InputReader inputReader) {
+        this.inputReader = inputReader;
+    }
+
     public int readDayOfVisit() {
-        String dayInput = Console.readLine();
+        String dayInput = inputReader.read();
         validateIntegerInput(dayInput);
 
         return Integer.parseInt(dayInput);

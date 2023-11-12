@@ -1,6 +1,7 @@
 package christmas;
 
 import christmas.model.Day;
+import christmas.view.ConsoleInputReader;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -11,7 +12,7 @@ public class ChristmasEventController {
     private final OutputView outputView;
 
     public ChristmasEventController() {
-        this.inputView = new InputView();
+        this.inputView = new InputView(new ConsoleInputReader());
         this.outputView = new OutputView();
     }
 
