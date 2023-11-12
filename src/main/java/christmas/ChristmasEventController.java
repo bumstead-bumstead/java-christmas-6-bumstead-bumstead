@@ -25,7 +25,7 @@ public class ChristmasEventController {
 
     private Day getDayOfVisit() {
         int dayInput = inputView.readDayOfVisit();
-        return new Day(dayInput);
+        return Day.of(dayInput);
     }
 
     private <T> T requestRepeatedly(Supplier<T> supplier) {

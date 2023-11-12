@@ -4,16 +4,28 @@ import christmas.config.EventConfig;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 import static christmas.config.EventConfig.*;
 import static java.time.DayOfWeek.*;
 
 public class Day {
+    private static final Map<Integer, Day> dayCache = new HashMap<>();
+    static {
+        IntStream.range(1, 32)
+                .forEach(dayNumber -> dayCache.put(dayNumber, new Day(dayNumber)));
+    }
     private final int day;
 
-    public Day(int day) {
+    private Day(int day) {
         validate(day);
         this.day = day;
+    }
+
+    public static Day of(int day) {
+        return dayCache.get(day);
     }
 
     public boolean isWeekend() {
