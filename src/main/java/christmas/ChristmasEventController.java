@@ -1,10 +1,12 @@
 package christmas;
 
 import christmas.model.Day;
+import christmas.model.MenuSheet;
 import christmas.view.ConsoleInputReader;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class ChristmasEventController {
@@ -21,6 +23,13 @@ public class ChristmasEventController {
         outputView.printDayOfVisitInputMessage();
         Day dayOfVisit = requestRepeatedly(this::getDayOfVisit);
 
+        outputView.printMenuInputMessage();
+        MenuSheet menuSheet = requestRepeatedly(this::getMenuSheet);
+    }
+
+    private MenuSheet getMenuSheet() {
+        List<String> menuInput = inputView.readMenu();
+        return MenuSheet.of(menuInput);
     }
 
     private Day getDayOfVisit() {
