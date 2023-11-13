@@ -42,7 +42,10 @@ public class MenuSheet {
 
     private static Map<Menu, Integer> parseMenuDtosToMap(List<MenuDto> menuDtos) {
         Map<Menu, Integer> menuCount = new HashMap<>();
-        menuDtos.forEach(menuDto -> menuCount.put(menuDto.getMenu(), menuDto.getCount()));
+        menuDtos.forEach(menuDto -> {
+            Menu menu = Menu.of(menuDto.getMenuName());
+            menuCount.put(menu, menuDto.getCount());
+        });
 
         return menuCount;
     }
@@ -56,7 +59,10 @@ public class MenuSheet {
     private static void validateMenuCombination(List<MenuDto> menuDtos) {
         long numberOfNonBeverage = menuDtos
                 .stream()
-                .filter(menuDto -> !menuDto.getMenu().isKindOf(BEVERAGE))
+                .filter(menuDto -> {
+                    Menu menu = Menu.of(menuDto.getMenuName());
+                    return !menu.isKindOf(BEVERAGE);
+                })
                 .count();
 
         if (numberOfNonBeverage < MINIMUM_NUMBER_OF_NON_BEVERAGE) {
@@ -78,7 +84,7 @@ public class MenuSheet {
 
     private static void validateDuplication(List<MenuDto> menuDtos) {
         int distinctMenuCount = (int) menuDtos.stream()
-                .map(MenuDto::getMenu)
+                .map(MenuDto::getMenuName)
                 .distinct()
                 .count();
 
