@@ -18,6 +18,18 @@ public enum Menu {
     RED_WINE("레드와인", 60_000, BEVERAGE),
     CHAMPAGNE("샴페인", 25_000, BEVERAGE);
 
+    public String getLabel() {
+        return label;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public FoodCategory getFoodCategory() {
+        return foodCategory;
+    }
+
     private final String label;
     private final int price;
     private final FoodCategory foodCategory;
@@ -26,6 +38,10 @@ public enum Menu {
         this.label = label;
         this.price = price;
         this.foodCategory = foodCategory;
+    }
+
+    public boolean isBeverage() {
+        return foodCategory.equals(BEVERAGE);
     }
 
     public static Menu of(String label) {

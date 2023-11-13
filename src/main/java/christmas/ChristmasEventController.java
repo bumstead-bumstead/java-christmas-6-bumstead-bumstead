@@ -29,7 +29,7 @@ public class ChristmasEventController {
 
     private MenuSheet getMenuSheet() {
         List<String> menuInput = inputView.readMenu();
-        return MenuSheet.of(menuInput);
+        return MenuSheet.fromConsoleInputFormat(menuInput);
     }
 
     private Day getDayOfVisit() {
