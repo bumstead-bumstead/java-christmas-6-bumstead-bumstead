@@ -1,7 +1,5 @@
 package christmas.model;
 
-import java.util.Arrays;
-
 import static christmas.model.FoodCategory.*;
 
 public enum Menu {
@@ -40,8 +38,8 @@ public enum Menu {
         this.foodCategory = foodCategory;
     }
 
-    public boolean isBeverage() {
-        return foodCategory.equals(BEVERAGE);
+    public boolean isKindOf(FoodCategory foodCategory) {
+        return this.foodCategory.equals(foodCategory);
     }
 
     public static Menu of(String label) {
