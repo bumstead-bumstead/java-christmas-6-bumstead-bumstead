@@ -1,13 +1,17 @@
 package christmas.model;
 
 import christmas.dto.MenuDto;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
-import static christmas.model.Menu.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -76,29 +80,59 @@ class MenuSheetTest {
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("음료가 아닌 메뉴를 최소 한 개 이상 주문해주세요.");
         }
+    }
 
-        @DisplayName("유효한 입력일 경우, 메뉴의 개수를 유효하게 저장한다.")
-        @Test
-        void instance() {
-            //given
+    @DisplayName("양송이수프-2,티본스테이크-2,초코케이크-3,샴페인-1,타파스-3,아이스크림-5를 포함하는 MenuSheet 객체에 대해서,")
+    @Nested
+    class calculation {
+        private static MenuSheet menuSheet;
+
+        @BeforeAll
+        static void setup() {
             List<MenuDto> menuDtos = List.of(
-                    MenuDto.fromConsoleInputFormat("양송이수프-3"),
-                    MenuDto.fromConsoleInputFormat("제로콜라-3"),
-                    MenuDto.fromConsoleInputFormat("티본스테이크-3")
+                    MenuDto.fromConsoleInputFormat("양송이수프-2"),
+                    MenuDto.fromConsoleInputFormat("티본스테이크-2"),
+                    MenuDto.fromConsoleInputFormat("초코케이크-3"),
+                    MenuDto.fromConsoleInputFormat("샴페인-1"),
+                    MenuDto.fromConsoleInputFormat("타파스-3"),
+                    MenuDto.fromConsoleInputFormat("아이스크림-5")
             );
+            menuSheet = MenuSheet.fromMenuDtoList(menuDtos);
+        }
+
+        @DisplayName("각 카테고리의 음식 개수를 반환한다.")
+        @MethodSource("provideFoodCategoriesAndPrices")
+        @ParameterizedTest
+        void numberOfMenuCategory(FoodCategory foodCategory, int expectedNumber) {
             //when
-            MenuSheet menuSheet = MenuSheet.fromMenuDtoList(menuDtos);
+            int actualNumber = menuSheet.getNumberOfMenuCategory(foodCategory); //208_500 -> 233500
 
             //then
-            assertThat(menuSheet.getNumberOfMenu(T_BONE_STEAK))
-                    .isEqualTo(3);
-            assertThat(menuSheet.getNumberOfMenu(MUSHROOM_SOUP))
-                    .isEqualTo(3);
-            assertThat(menuSheet.getNumberOfMenu(ZERO_COKE))
-                    .isEqualTo(3);
-            assertThat(menuSheet.getNumberOfMenu(ICE_CREAM))
-                    .isEqualTo(0);
+            assertThat(actualNumber)
+                    .isEqualTo(expectedNumber);
+        }
 
+        @DisplayName("총 가격의 합을 반환한다.")
+        @Test
+        void calculateTotalPrice() {
+            //given
+            int expectedTotalPrice = 233_500;
+
+            //when
+            int actualTotalPrice = menuSheet.calculateTotalPrice();
+
+            //then
+            assertThat(actualTotalPrice)
+                    .isEqualTo(expectedTotalPrice);
+        }
+
+        private static Stream<Arguments> provideFoodCategoriesAndPrices() {
+            return Stream.of(
+                    Arguments.of(FoodCategory.MAIN, 2),
+                    Arguments.of(FoodCategory.DESSERT, 8),
+                    Arguments.of(FoodCategory.APPETIZER, 5),
+                    Arguments.of(FoodCategory.BEVERAGE, 1)
+            );
         }
     }
 }
