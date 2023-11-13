@@ -1,10 +1,12 @@
 package christmas.view;
 
+import christmas.config.ErrorMessage;
 import christmas.dto.MenuDto;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static christmas.config.ErrorMessage.*;
 import static christmas.config.EventConfig.*;
 
 public class InputView {
@@ -25,7 +27,7 @@ public class InputView {
         try {
             Integer.parseInt(dayInput);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("정수 형태로 입력해주세요.");
+            throw new IllegalArgumentException(DAY_INPUT_ERROR_MESSAGE);
         }
     }
 
@@ -47,7 +49,7 @@ public class InputView {
 
     private void validateMenuInputFormat(String menuInput) {
         if (!menuInput.matches(MENU_INPUT_REGEX)) {
-            throw new IllegalArgumentException("메뉴와 개수는 \'${메뉴 이름}-${개수}\' 의 형태로 입력해주세요.");
+            throw new IllegalArgumentException(MENU_INPUT_ERROR_MESSAGE);
         }
     }
 }

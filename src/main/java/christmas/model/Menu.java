@@ -1,5 +1,6 @@
 package christmas.model;
 
+import static christmas.config.ErrorMessage.MENU_INPUT_ERROR_MESSAGE;
 import static christmas.model.FoodCategory.*;
 
 public enum Menu {
@@ -37,7 +38,7 @@ public enum Menu {
                 return menu;
             }
         }
-        throw new IllegalArgumentException("존재하지 않는 메뉴가 있습니다.");
+        throw new IllegalArgumentException(MENU_INPUT_ERROR_MESSAGE);
     }
 
     public String getLabel() {

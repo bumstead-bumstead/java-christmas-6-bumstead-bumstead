@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
+import static christmas.config.ErrorMessage.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -37,7 +38,7 @@ class InputViewTest {
             //then
             assertThatThrownBy(inputView::readDayOfVisit)
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("정수 형태로 입력해주세요.");
+                    .hasMessage(DAY_INPUT_ERROR_MESSAGE);
         }
 
         @DisplayName("유효한 입력의 경우 int를 반환한다.")
@@ -88,7 +89,7 @@ class InputViewTest {
             //then
             assertThatThrownBy(() -> inputView.readMenu())
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("메뉴와 개수는 \'${메뉴 이름}-${개수}\' 의 형태로 입력해주세요.");
+                    .hasMessage(MENU_INPUT_ERROR_MESSAGE);
         }
     }
 }

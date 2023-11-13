@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.config.ErrorMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static christmas.config.ErrorMessage.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -27,7 +29,7 @@ class DayTest {
             //then
             assertThatThrownBy(() -> Day.of(dayInput))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("1에서 31일 사이의 값을 입력해주세요.");
+                    .hasMessage(DAY_INPUT_ERROR_MESSAGE);
         }
 
         @DisplayName("같은 값으로 반복적으로 생성할 경우 같은 객체를 반환한다.")

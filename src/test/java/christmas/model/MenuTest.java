@@ -1,18 +1,16 @@
 package christmas.model;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
+import static christmas.config.ErrorMessage.MENU_INPUT_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
 
@@ -24,7 +22,7 @@ class MenuTest {
         //then
         assertThatThrownBy(() -> Menu.of(menuName))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("존재하지 않는 메뉴가 있습니다.");
+                .hasMessage(MENU_INPUT_ERROR_MESSAGE);
     }
 
     @DisplayName("존재하는 이름의 메뉴를 요청하면 알맞은 Menu 객체를 반환한다.")

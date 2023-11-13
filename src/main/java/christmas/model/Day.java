@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
+import static christmas.config.ErrorMessage.DAY_INPUT_ERROR_MESSAGE;
 import static christmas.config.EventConfig.*;
 import static java.time.DayOfWeek.*;
 
@@ -46,7 +47,7 @@ public class Day {
 
     private static void validateRange(int day) {
         if (isInvalidDay(day)) {
-            throw new IllegalArgumentException("1에서 31일 사이의 값을 입력해주세요.");
+            throw new IllegalArgumentException(DAY_INPUT_ERROR_MESSAGE);
         }
     }
 

@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static christmas.config.ErrorMessage.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -46,7 +47,7 @@ class MenuSheetTest {
             //then
             assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("메뉴 이름이 중복되었습니다.");
+                    .hasMessage(MENU_INPUT_ERROR_MESSAGE);
         }
 
         @DisplayName("메뉴 개수가 정해진 개수를 초과할 경우 IllegalArgumentException을 발생시킨다.")
@@ -62,7 +63,7 @@ class MenuSheetTest {
             //then
             assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("메뉴는 최대 20개까지 주문할 수 있습니다.");
+                    .hasMessage(MENU_NUMBER_ERROR_MESSAGE);
         }
 
         @DisplayName("음료 외의 메뉴가 없을 경우 IllegalArgumentException을 발생시킨다.")
@@ -78,7 +79,7 @@ class MenuSheetTest {
             //then
             assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("음료가 아닌 메뉴를 최소 한 개 이상 주문해주세요.");
+                    .hasMessage(MENU_COMBINATION_ERROR_MESSAGE);
         }
     }
 

@@ -1,11 +1,11 @@
 package christmas.model;
 
 import christmas.dto.MenuDto;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static christmas.config.ErrorMessage.*;
 import static christmas.config.EventConfig.*;
 import static christmas.model.FoodCategory.*;
 
@@ -73,7 +73,7 @@ public class MenuSheet {
                 .count();
 
         if (numberOfNonBeverage < MINIMUM_NUMBER_OF_NON_BEVERAGE) {
-            throw new IllegalArgumentException("음료가 아닌 메뉴를 최소 한 개 이상 주문해주세요.");
+            throw new IllegalArgumentException(MENU_COMBINATION_ERROR_MESSAGE);
         }
     }
 
@@ -85,7 +85,7 @@ public class MenuSheet {
                 .sum();
 
         if (totalMenuCont > MAXIMUM_NUMBER_OF_MENU) {
-            throw new IllegalArgumentException("메뉴는 최대 20개까지 주문할 수 있습니다.");
+            throw new IllegalArgumentException(MENU_NUMBER_ERROR_MESSAGE);
         }
     }
 
@@ -96,7 +96,7 @@ public class MenuSheet {
                 .count();
 
         if (distinctMenuCount != menuDtos.size()) {
-            throw new IllegalArgumentException("메뉴 이름이 중복되었습니다.");
+            throw new IllegalArgumentException(MENU_INPUT_ERROR_MESSAGE);
         }
     }
 }
