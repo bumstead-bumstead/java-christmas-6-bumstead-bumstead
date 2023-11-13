@@ -20,6 +20,10 @@ public class MenuSheet {
         return new MenuSheet(menuCount);
     }
 
+    public int getNumberOfMenu(Menu menu) {
+        return menuCount.getOrDefault(menu, 0);
+    }
+
     private static Map<Menu, Integer> parseMenuEntriesToMap(List<String> menuEntries) {
         Map<Menu, Integer> menuCount = new HashMap<>();
         menuEntries
