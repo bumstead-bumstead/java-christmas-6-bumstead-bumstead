@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import static christmas.config.EventConfig.*;
+import static christmas.model.FoodCategory.*;
 
 public class MenuSheet {
     private final Map<Menu, Integer> menuCount;
@@ -22,6 +23,23 @@ public class MenuSheet {
 
     public int getNumberOfMenu(Menu menu) {
         return menuCount.getOrDefault(menu, 0);
+    }
+
+    public int getNumberOfMenuCategory(FoodCategory foodCategory) {
+        return menuCount.keySet()
+                .stream()
+                .filter(menu -> menu.isKindOf(foodCategory))
+                .map(menuCount::get)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public int calculateTotalPrice() {
+        return menuCount.keySet()
+                .stream()
+                .map(menu -> menuCount.get(menu) * menu.getPrice())
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     private static Map<Menu, Integer> parseMenuEntriesToMap(List<String> menuEntries) {
@@ -51,7 +69,7 @@ public class MenuSheet {
     private static void validateMenuCombination(Map<Menu, Integer> menuCount) {
         long numberOfNonBeverage = menuCount.keySet()
                 .stream()
-                .filter(menu -> !menu.isBeverage())
+                .filter(menu -> !menu.isKindOf(BEVERAGE))
                 .count();
 
         if (numberOfNonBeverage < MINIMUM_NUMBER_OF_NON_BEVERAGE) {

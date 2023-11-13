@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.model.Benefit;
 import christmas.model.Day;
 import christmas.model.MenuSheet;
 import christmas.view.ConsoleInputReader;
@@ -25,6 +26,8 @@ public class ChristmasEventController {
 
         outputView.printMenuInputMessage();
         MenuSheet menuSheet = requestRepeatedly(this::getMenuSheet);
+
+        Benefit benefit = Benefit.of(dayOfVisit, menuSheet);
     }
 
     private MenuSheet getMenuSheet() {
