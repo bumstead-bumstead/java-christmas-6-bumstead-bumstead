@@ -17,10 +17,6 @@ public enum Menu {
     CHAMPAGNE("샴페인", 25_000, BEVERAGE),
     NO_FOOD("없음", 0, NO_CATEGORY);
 
-    public int getPrice() {
-        return price;
-    }
-
     private final String label;
     private final int price;
     private final FoodCategory foodCategory;
@@ -42,5 +38,13 @@ public enum Menu {
             }
         }
         throw new IllegalArgumentException("존재하지 않는 메뉴가 있습니다.");
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

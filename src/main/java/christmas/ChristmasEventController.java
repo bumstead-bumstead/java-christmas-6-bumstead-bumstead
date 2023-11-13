@@ -22,13 +22,29 @@ public class ChristmasEventController {
 
     public void run() {
         outputView.printStartMessage();
-        outputView.printDayOfVisitInputMessage();
-        Day dayOfVisit = requestRepeatedly(this::getDayOfVisit);
+        Day dayOfVisit = inputDayOfVisit();
+        MenuSheet menuSheet = inputMenus();
+        Benefit benefit = Benefit.of(dayOfVisit, menuSheet);
 
+        showResult(dayOfVisit, menuSheet, benefit);
+    }
+
+    private MenuSheet inputMenus() {
         outputView.printMenuInputMessage();
         MenuSheet menuSheet = requestRepeatedly(this::getMenuSheet);
+        return menuSheet;
+    }
 
-        Benefit benefit = Benefit.of(dayOfVisit, menuSheet);
+    private Day inputDayOfVisit() {
+        outputView.printDayOfVisitInputMessage();
+        Day dayOfVisit = requestRepeatedly(this::getDayOfVisit);
+        return dayOfVisit;
+    }
+
+    private void showResult(Day dayOfVisit, MenuSheet menuSheet, Benefit benefit) {
+        outputView.printBenefitIntroduceMessage(dayOfVisit);
+        outputView.printOrderedMenus(menuSheet.toMenuDtoList());
+        outputView.printBenefit(benefit);
     }
 
     private MenuSheet getMenuSheet() {
