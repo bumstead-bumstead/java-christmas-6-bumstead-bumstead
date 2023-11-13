@@ -2,6 +2,7 @@ package christmas.dto;
 
 import christmas.model.Menu;
 
+import java.util.Map;
 import java.util.Objects;
 
 import static christmas.config.EventConfig.MENU_COUNT_SEPARATOR;
@@ -29,6 +30,12 @@ public class MenuDto {
         int count = Integer.parseInt(parts[1]);
 
         return new MenuDto(menuName, count);
+    }
+
+    public static MenuDto fromMenuEntry(Map.Entry<Menu, Integer> entry) {
+        Menu menu = entry.getKey();
+        int count = entry.getValue();
+        return new MenuDto(menu.getLabel(), count);
     }
 
     @Override

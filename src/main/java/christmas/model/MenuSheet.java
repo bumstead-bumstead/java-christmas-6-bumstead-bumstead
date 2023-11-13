@@ -23,6 +23,13 @@ public class MenuSheet {
         return new MenuSheet(menuCount);
     }
 
+    public List<MenuDto> toMenuDtoList() {
+        return menuCount.entrySet()
+                .stream()
+                .map(MenuDto::fromMenuEntry)
+                .toList();
+    }
+
     public int getNumberOfMenuCategory(FoodCategory foodCategory) {
         return menuCount.keySet()
                 .stream()
