@@ -85,7 +85,7 @@ public class OutputView {
 
     private void printBenefits(Benefit benefit) {
         System.out.println(BENEFIT_HEADER);
-        printDDayDiscount(benefit.getdDayDiscount());
+        printDDayDiscount(benefit.getDDayDiscount());
         printWeekdayDiscount(benefit.getWeekdayDiscount());
         printWeekendDiscount(benefit.getWeekendDiscount());
         printSpecialDiscount(benefit.getSpecialDiscount());

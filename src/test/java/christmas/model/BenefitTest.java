@@ -28,6 +28,7 @@ class BenefitTest {
 
             day = Mockito.mock(Day.class);
         }
+
         @DisplayName("총 가격이 120_000을 넘으면, gift는 Champagne이다.")
         @Test
         void gift() {

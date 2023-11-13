@@ -24,57 +24,6 @@ public class Benefit {
         this.dDayDiscount = dDayDiscount;
     }
 
-    public Menu getGift() {
-        return gift;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public int getSpecialDiscount() {
-        return specialDiscount;
-    }
-
-    public int getWeekendDiscount() {
-        return weekendDiscount;
-    }
-
-    public int getWeekdayDiscount() {
-        return weekdayDiscount;
-    }
-
-    public int getdDayDiscount() {
-        return dDayDiscount;
-    }
-
-    public Badge getBadge() {
-        return Badge.fromTotalBenefit(getTotalBenefit());
-    }
-
-    public int getTotalBenefit() {
-        return dDayDiscount +
-                weekendDiscount +
-                weekdayDiscount +
-                specialDiscount +
-                gift.getPrice();
-    }
-
-    public int getTotalDiscount() {
-        return dDayDiscount +
-                weekendDiscount +
-                weekdayDiscount +
-                specialDiscount;
-    }
-
-    public boolean hasBenefit() {
-        return dDayDiscount > 0 ||
-                weekdayDiscount > 0 ||
-                weekendDiscount > 0 ||
-                specialDiscount > 0 ||
-                !gift.equals(Menu.NO_FOOD);
-    }
-
     public static Benefit of(Day day, MenuSheet menuSheet) {
         int totalPrice = menuSheet.calculateTotalPrice();
         if (totalPrice < MINIMUM_ORDER_AMOUNT) {
@@ -136,5 +85,48 @@ public class Benefit {
                 0,
                 0
         );
+    }
+
+    public Menu getGift() {
+        return gift;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public int getSpecialDiscount() {
+        return specialDiscount;
+    }
+
+    public int getWeekendDiscount() {
+        return weekendDiscount;
+    }
+
+    public int getWeekdayDiscount() {
+        return weekdayDiscount;
+    }
+
+    public int getDDayDiscount() {
+        return dDayDiscount;
+    }
+
+    public Badge getBadge() {
+        return Badge.fromTotalBenefit(getTotalBenefit());
+    }
+
+    public int getTotalBenefit() {
+        return getTotalDiscount() + gift.getPrice();
+    }
+
+    public int getTotalDiscount() {
+        return dDayDiscount +
+                weekendDiscount +
+                weekdayDiscount +
+                specialDiscount;
+    }
+
+    public boolean hasBenefit() {
+        return getTotalBenefit() > 0;
     }
 }
