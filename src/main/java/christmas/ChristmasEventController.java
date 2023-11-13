@@ -1,5 +1,6 @@
 package christmas;
 
+import christmas.dto.MenuDto;
 import christmas.model.Benefit;
 import christmas.model.Day;
 import christmas.model.MenuSheet;
@@ -31,8 +32,8 @@ public class ChristmasEventController {
     }
 
     private MenuSheet getMenuSheet() {
-        List<String> menuInput = inputView.readMenu();
-        return MenuSheet.fromConsoleInputFormat(menuInput);
+        List<MenuDto> menuInput = inputView.readMenu();
+        return MenuSheet.fromMenuDtoList(menuInput);
     }
 
     private Day getDayOfVisit() {
