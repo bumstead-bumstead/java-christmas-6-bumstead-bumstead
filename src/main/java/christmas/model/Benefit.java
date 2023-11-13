@@ -77,7 +77,7 @@ public class Benefit {
 
     public static Benefit of(Day day, MenuSheet menuSheet) {
         int totalPrice = menuSheet.calculateTotalPrice();
-        if (totalPrice == 0) {
+        if (totalPrice < MINIMUM_ORDER_AMOUNT) {
             return empty(totalPrice);
         }
 
