@@ -14,7 +14,8 @@ public enum Menu {
     ICE_CREAM("아이스크림", 5_000, DESSERT),
     ZERO_COKE("제로콜라", 3_000, BEVERAGE),
     RED_WINE("레드와인", 60_000, BEVERAGE),
-    CHAMPAGNE("샴페인", 25_000, BEVERAGE);
+    CHAMPAGNE("샴페인", 25_000, BEVERAGE),
+    NO_FOOD("없음", 0, NO_CATEGORY);
 
     public int getPrice() {
         return price;

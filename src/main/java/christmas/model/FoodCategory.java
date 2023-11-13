@@ -4,5 +4,6 @@ public enum FoodCategory {
     APPETIZER,
     MAIN,
     DESSERT,
-    BEVERAGE;
+    BEVERAGE,
+    NO_CATEGORY;
 }
