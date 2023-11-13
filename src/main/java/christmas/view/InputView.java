@@ -42,7 +42,7 @@ public class InputView {
     }
 
     private void validateMenuInputFormat(String menuInput) {
-        if (menuInput.matches(MENU_INPUT_REGEX)) {
+        if (!menuInput.matches(MENU_INPUT_REGEX)) {
             throw new IllegalArgumentException("메뉴와 개수는 \'${메뉴 이름}-${개수}\' 의 형태로 입력해주세요.");
         }
     }
