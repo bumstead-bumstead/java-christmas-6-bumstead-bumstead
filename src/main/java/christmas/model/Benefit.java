@@ -10,11 +10,6 @@ public class Benefit {
     private final int weekdayDiscount;
     private final int dDayDiscount;
 
-    /*
-     * Order 객체를 입력받아서 바로 생성하느냐... 아님 필드를 입력받아서 생성하느냐...
-     * 혜택 계산 관련 로직은 여기에 있는 게 맞다.
-     * */
-
     private Benefit(Menu gift,
                     int totalPrice,
                     int specialDiscount,
@@ -27,6 +22,57 @@ public class Benefit {
         this.weekendDiscount = weekendDiscount;
         this.weekdayDiscount = weekdayDiscount;
         this.dDayDiscount = dDayDiscount;
+    }
+
+    public Menu getGift() {
+        return gift;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public int getSpecialDiscount() {
+        return specialDiscount;
+    }
+
+    public int getWeekendDiscount() {
+        return weekendDiscount;
+    }
+
+    public int getWeekdayDiscount() {
+        return weekdayDiscount;
+    }
+
+    public int getdDayDiscount() {
+        return dDayDiscount;
+    }
+
+    public Badge getBadge() {
+        return Badge.fromTotalBenefit(getTotalBenefit());
+    }
+
+    public int getTotalBenefit() {
+        return dDayDiscount +
+                weekendDiscount +
+                weekdayDiscount +
+                specialDiscount +
+                gift.getPrice();
+    }
+
+    public int getTotalDiscount() {
+        return dDayDiscount +
+                weekendDiscount +
+                weekdayDiscount +
+                specialDiscount;
+    }
+
+    public boolean hasBenefit() {
+        return dDayDiscount > 0 ||
+                weekdayDiscount > 0 ||
+                weekendDiscount > 0 ||
+                specialDiscount > 0 ||
+                !gift.equals(Menu.NO_FOOD);
     }
 
     public static Benefit of(Day day, MenuSheet menuSheet) {
@@ -49,11 +95,14 @@ public class Benefit {
         if (totalPrice > PURCHASE_AMOUNT_BASELINE) {
             return DEFAULT_GIFT;
         }
-        return null;
+        return Menu.NO_FOOD;
     }
 
     private static int calculateDDayDiscount(Day day) {
-        return D_DAY_DISCOUNT_LOWER_BOUND + day.getDay() * D_DAY_DISCOUNT_UNIT;
+        if (day.getDay() > END_DAY_OF_D_DAY_EVENT) {
+            return 0;
+        }
+        return D_DAY_DISCOUNT_LOWER_BOUND + (day.getDay() - 1) * D_DAY_DISCOUNT_UNIT;
     }
 
     private static int calculateWeekdayDiscount(Day day, MenuSheet menuSheet) {
@@ -80,7 +129,7 @@ public class Benefit {
 
     private static Benefit empty(int totalPrice) {
         return new Benefit(
-                null,
+                Menu.NO_FOOD,
                 totalPrice,
                 0,
                 0,

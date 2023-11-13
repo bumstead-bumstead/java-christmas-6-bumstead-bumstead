@@ -11,6 +11,7 @@ public class EventConfig {
     public static final int DAY_END = 31;
     public static final int MINIMUM_NUMBER_OF_NON_BEVERAGE = 1;
     public static final int MAXIMUM_NUMBER_OF_MENU = 20;
+    public static final int END_DAY_OF_D_DAY_EVENT = 25;
     public static final List<Integer> STARRED_DAYS = List.of(3, 10, 17, 24, 25, 31);
     public static final Menu DEFAULT_GIFT = Menu.CHAMPAGNE;
     public static final int SPECIAL_DISCOUNT = 1_000;
