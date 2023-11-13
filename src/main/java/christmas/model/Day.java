@@ -34,7 +34,7 @@ public class Day {
     }
 
     public boolean isComponentOf(List<Integer> days) {
-        return days.contains(days);
+        return days.contains(day);
     }
 
     public boolean isWeekend() {
