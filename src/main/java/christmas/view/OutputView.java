@@ -75,7 +75,7 @@ public class OutputView {
     private void printTotalBenefitPrice(int totalBenefit) {
         System.out.println(TOTAL_BENEFIT_PRICE_HEADER);
         if (totalBenefit == 0) {
-            System.out.println(NOTHING_MESSAGE);
+            System.out.println(String.format(PRICE_FORMAT, formatIntegerToAmount(totalBenefit)));
             printNewLine();
             return;
         }
