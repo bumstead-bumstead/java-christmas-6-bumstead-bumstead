@@ -1,7 +1,5 @@
 package christmas.model;
 
-import christmas.config.EventConfig;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -13,18 +11,20 @@ import static java.time.DayOfWeek.*;
 
 public class Day {
     private static final Map<Integer, Day> dayCache = new HashMap<>();
+
     static {
-        IntStream.range(1, 32)
+        IntStream.range(DAY_START, DAY_END + 1)
                 .forEach(dayNumber -> dayCache.put(dayNumber, new Day(dayNumber)));
     }
+
     private final int day;
 
     private Day(int day) {
-        validate(day);
         this.day = day;
     }
 
     public static Day of(int day) {
+        validateRange(day);
         return dayCache.get(day);
     }
 
@@ -35,13 +35,13 @@ public class Day {
         return DayOfWeek.equals(SATURDAY) || DayOfWeek.equals(SUNDAY);
     }
 
-    private void validate(int day) {
+    private static void validateRange(int day) {
         if (isInvalidDay(day)) {
             throw new IllegalArgumentException("1에서 31일 사이의 값을 입력해주세요.");
         }
     }
 
     private static boolean isInvalidDay(int day) {
-        return day < 1 || day > 31;
+        return day < DAY_START || day > DAY_END;
     }
 }
