@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.dto.MenuDto;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,7 +10,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class InputViewTest {
@@ -58,21 +58,21 @@ class InputViewTest {
     @DisplayName("메뉴를 입력받을 때,")
     @Nested
     class ReadMenuInput {
-        @DisplayName("유효한 입력의 경우 List<String>을 반환한다.")
+        @DisplayName("유효한 입력의 경우 List<MenuDto>을 반환한다.")
         @Test
         void validDayInput() {
             //given
             when(inputReader.read())
-                    .thenReturn("해산물파스타-3,어쩌구저쩌구-1,타파스-53");
+                    .thenReturn("해산물파스타-3,티본스테이크-1,타파스-53");
 
             //when
-            List<String> result = inputView.readMenu();
+            List<MenuDto> result = inputView.readMenu();
 
             //then
             assertThat(result)
-                    .contains("해산물파스타-3")
-                    .contains("어쩌구저쩌구-1")
-                    .contains("타파스-53")
+                    .contains(MenuDto.fromConsoleInputFormat("해산물파스타-3"))
+                    .contains(MenuDto.fromConsoleInputFormat("티본스테이크-1"))
+                    .contains(MenuDto.fromConsoleInputFormat("타파스-53"))
                     .hasSize(3);
         }
 

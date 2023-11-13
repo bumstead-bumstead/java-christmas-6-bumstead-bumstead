@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.dto.MenuDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,19 +20,27 @@ class MenuSheetTest {
         @Test
         void validInput() {
             //given
-            List<String> inputEntries = List.of("양송이수프-3", "제로콜라-3", "티본스테이크-3");
-            MenuSheet.fromConsoleInputFormat(inputEntries);
+            List<MenuDto> menuDtos = List.of(
+                    MenuDto.fromConsoleInputFormat("양송이수프-3"),
+                    MenuDto.fromConsoleInputFormat("제로콜라-3"),
+                    MenuDto.fromConsoleInputFormat("티본스테이크-3")
+            );
+            MenuSheet.fromMenuDtoList(menuDtos);
         }
 
         @DisplayName("메뉴 입력이 중복된 경우 IllegalArgumentException을 발생시킨다.")
         @Test
         void duplication() {
             //given
-            List<String> inputEntries = List.of("양송이수프-3", "제로콜라-3", "양송이수프-2");
+            List<MenuDto> menuDtos = List.of(
+                    MenuDto.fromConsoleInputFormat("양송이수프-3"),
+                    MenuDto.fromConsoleInputFormat("제로콜라-3"),
+                    MenuDto.fromConsoleInputFormat("양송이수프-2")
+            );
 
             //when
             //then
-            assertThatThrownBy(() -> MenuSheet.fromConsoleInputFormat(inputEntries))
+            assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("메뉴 이름이 중복되었습니다.");
         }
@@ -40,11 +49,14 @@ class MenuSheetTest {
         @Test
         void maximumMenuNumber() {
             //given
-            List<String> inputEntries = List.of("양송이수프-15", "제로콜라-3", "타파스-3");
-
+            List<MenuDto> menuDtos = List.of(
+                    MenuDto.fromConsoleInputFormat("양송이수프-15"),
+                    MenuDto.fromConsoleInputFormat("제로콜라-3"),
+                    MenuDto.fromConsoleInputFormat("타파스-3")
+            );
             //when
             //then
-            assertThatThrownBy(() -> MenuSheet.fromConsoleInputFormat(inputEntries))
+            assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("메뉴는 최대 20개까지 주문할 수 있습니다.");
         }
@@ -53,11 +65,14 @@ class MenuSheetTest {
         @Test
         void onlyBeverage() {
             //given
-            List<String> inputEntries = List.of("레드와인-3", "제로콜라-3", "샴페인-3");
-
+            List<MenuDto> menuDtos = List.of(
+                    MenuDto.fromConsoleInputFormat("레드와인-3"),
+                    MenuDto.fromConsoleInputFormat("제로콜라-3"),
+                    MenuDto.fromConsoleInputFormat("샴페인-3")
+            );
             //when
             //then
-            assertThatThrownBy(() -> MenuSheet.fromConsoleInputFormat(inputEntries))
+            assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("음료가 아닌 메뉴를 최소 한 개 이상 주문해주세요.");
         }
@@ -66,10 +81,13 @@ class MenuSheetTest {
         @Test
         void instance() {
             //given
-            List<String> inputEntries = List.of("양송이수프-3", "제로콜라-3", "티본스테이크-3");
-
+            List<MenuDto> menuDtos = List.of(
+                    MenuDto.fromConsoleInputFormat("양송이수프-3"),
+                    MenuDto.fromConsoleInputFormat("제로콜라-3"),
+                    MenuDto.fromConsoleInputFormat("티본스테이크-3")
+            );
             //when
-            MenuSheet menuSheet = MenuSheet.fromConsoleInputFormat(inputEntries);
+            MenuSheet menuSheet = MenuSheet.fromMenuDtoList(menuDtos);
 
             //then
             assertThat(menuSheet.getNumberOfMenu(T_BONE_STEAK))

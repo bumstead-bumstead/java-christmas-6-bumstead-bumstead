@@ -1,11 +1,14 @@
 package christmas.model;
 
+import christmas.dto.MenuDto;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static christmas.config.EventConfig.*;
 import static christmas.model.FoodCategory.*;
+import static java.awt.SystemColor.menu;
 
 public class MenuSheet {
     private final Map<Menu, Integer> menuCount;
@@ -14,11 +17,35 @@ public class MenuSheet {
         this.menuCount = menuCount;
     }
 
-    public static MenuSheet fromConsoleInputFormat(List<String> menuEntries) {
-        Map<Menu, Integer> menuCount = parseMenuEntriesToMap(menuEntries);
-        validateMenuCombination(menuCount);
-        validateTotalNumber(menuCount);
+    public static MenuSheet fromMenuDtoList(List<MenuDto> menuDtos) {
+        validate(menuDtos);
+
+        Map<Menu, Integer> menuCount = parseMenuDtosToMap(menuDtos);
         return new MenuSheet(menuCount);
+    }
+
+    private static Map<Menu, Integer> parseMenuDtosToMap(List<MenuDto> menuDtos) {
+        Map<Menu, Integer> menuCount = new HashMap<>();
+        menuDtos.forEach(menuDto -> menuCount.put(menuDto.getMenu(), menuDto.getCount()));
+
+        return menuCount;
+    }
+
+    private static void validateMenuCombination(List<MenuDto> menuDtos) {
+        long numberOfNonBeverage = menuDtos
+                .stream()
+                .filter(menuDto -> !menuDto.getMenu().isKindOf(BEVERAGE))
+                .count();
+
+        if (numberOfNonBeverage < MINIMUM_NUMBER_OF_NON_BEVERAGE) {
+            throw new IllegalArgumentException("음료가 아닌 메뉴를 최소 한 개 이상 주문해주세요.");
+        }
+    }
+
+    private static void validate(List<MenuDto> menuDtos) {
+        validateTotalNumber(menuDtos);
+        validateDuplication(menuDtos);
+        validateMenuCombination(menuDtos);
     }
 
     public int getNumberOfMenu(Menu menu) {
@@ -42,22 +69,10 @@ public class MenuSheet {
                 .sum();
     }
 
-    private static Map<Menu, Integer> parseMenuEntriesToMap(List<String> menuEntries) {
-        Map<Menu, Integer> menuCount = new HashMap<>();
-        menuEntries
-                .forEach(menuEntry -> {
-                    String[] parts = menuEntry.split(MENU_COUNT_SEPARATOR);
-                    Menu menu = Menu.of(parts[0]);
-                    int count = Integer.parseInt(parts[1]);
-                    validateDuplication(menuCount, menu);
-                    menuCount.put(menu, count);
-                });
-        return menuCount;
-    }
-
-    private static void validateTotalNumber(Map<Menu, Integer> menuCount) {
-        int totalMenuCont = menuCount.values()
+    private static void validateTotalNumber(List<MenuDto> menuDtos) {
+        int totalMenuCont = menuDtos
                 .stream()
+                .map(MenuDto::getCount)
                 .mapToInt(Integer::intValue)
                 .sum();
 
@@ -66,19 +81,13 @@ public class MenuSheet {
         }
     }
 
-    private static void validateMenuCombination(Map<Menu, Integer> menuCount) {
-        long numberOfNonBeverage = menuCount.keySet()
-                .stream()
-                .filter(menu -> !menu.isKindOf(BEVERAGE))
+    private static void validateDuplication(List<MenuDto> menuDtos) {
+        int distinctMenuCount = (int) menuDtos.stream()
+                .map(MenuDto::getMenu)
+                .distinct()
                 .count();
 
-        if (numberOfNonBeverage < MINIMUM_NUMBER_OF_NON_BEVERAGE) {
-            throw new IllegalArgumentException("음료가 아닌 메뉴를 최소 한 개 이상 주문해주세요.");
-        }
-    }
-
-    private static void validateDuplication(Map<Menu, Integer> menuCount, Menu menu) {
-        if (menuCount.containsKey(menu)) {
+        if (distinctMenuCount != menuDtos.size()) {
             throw new IllegalArgumentException("메뉴 이름이 중복되었습니다.");
         }
     }

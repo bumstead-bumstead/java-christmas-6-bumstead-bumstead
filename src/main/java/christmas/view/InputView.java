@@ -1,5 +1,7 @@
 package christmas.view;
 
+import christmas.dto.MenuDto;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,11 +29,13 @@ public class InputView {
         }
     }
 
-    public List<String> readMenu() {
+    public List<MenuDto> readMenu() {
         String menuInput = inputReader.read();
         validateMenuInput(menuInput);
 
-        return Arrays.stream(menuInput.split(MENU_SEPARATOR)).toList();
+        return Arrays.stream(menuInput.split(MENU_SEPARATOR))
+                .map(MenuDto::fromConsoleInputFormat)
+                .toList();
     }
 
     private void validateMenuInput(String menuInput) {
