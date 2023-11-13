@@ -16,16 +16,8 @@ public enum Menu {
     RED_WINE("레드와인", 60_000, BEVERAGE),
     CHAMPAGNE("샴페인", 25_000, BEVERAGE);
 
-    public String getLabel() {
-        return label;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public FoodCategory getFoodCategory() {
-        return foodCategory;
     }
 
     private final String label;
