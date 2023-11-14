@@ -17,7 +17,7 @@ public class InputView {
     }
 
     public int readDayOfVisit() {
-        String dayInput = inputReader.read();
+        String dayInput = inputReader.read().trim();
         validateIntegerInput(dayInput);
 
         return Integer.parseInt(dayInput);
@@ -32,7 +32,7 @@ public class InputView {
     }
 
     public List<MenuDto> readMenu() {
-        String menuInput = inputReader.read();
+        String menuInput = inputReader.read().trim();
         validateMenuInput(menuInput);
 
         return Arrays.stream(menuInput.split(MENU_SEPARATOR))
