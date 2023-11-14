@@ -5,6 +5,7 @@ import christmas.model.Benefit;
 import christmas.model.Day;
 import christmas.model.MenuSheet;
 import christmas.view.ConsoleInputReader;
+import christmas.view.ConsoleOutputFormatter;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -17,7 +18,7 @@ public class ChristmasEventController {
 
     public ChristmasEventController() {
         this.inputView = new InputView(new ConsoleInputReader());
-        this.outputView = new OutputView();
+        this.outputView = new OutputView(new ConsoleOutputFormatter());
     }
 
     public void run() {
