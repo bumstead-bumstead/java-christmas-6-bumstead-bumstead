@@ -65,10 +65,7 @@ public class MenuSheet {
     private static void validateMenuCombination(List<MenuDto> menuDtos) {
         long numberOfNonBeverage = menuDtos
                 .stream()
-                .filter(menuDto -> {
-                    Menu menu = Menu.of(menuDto.getMenuName());
-                    return !menu.isKindOf(BEVERAGE);
-                })
+                .filter(MenuSheet::isNotABeverage)
                 .count();
 
         if (numberOfNonBeverage < MINIMUM_NUMBER_OF_NON_BEVERAGE) {
@@ -97,5 +94,10 @@ public class MenuSheet {
         if (distinctMenuCount != menuDtos.size()) {
             throw new IllegalArgumentException(MENU_INPUT_ERROR_MESSAGE);
         }
+    }
+
+    private static boolean isNotABeverage(MenuDto menuDto) {
+        Menu menu = Menu.of(menuDto.getMenuName());
+        return !menu.isKindOf(BEVERAGE);
     }
 }
