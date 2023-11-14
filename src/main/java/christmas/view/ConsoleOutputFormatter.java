@@ -49,13 +49,6 @@ public class ConsoleOutputFormatter {
         return stringBuilder.toString();
     }
 
-    private static String formatMenu(MenuDto menuDto) {
-        return String.format(
-                ORDERED_MENU_FORMAT,
-                menuDto.getMenuName(),
-                menuDto.getCount());
-    }
-
     public String formatEventBadge(Badge badge) {
         StringBuilder stringBuilder = getHeaderStringBuilder(EVENT_BADGE_HEADER);
         if (badge.equals(Badge.NO_BADGE)) {
@@ -87,31 +80,6 @@ public class ConsoleOutputFormatter {
                 .toString();
     }
 
-    public String formatBenefits(Benefit benefit) {
-        StringBuilder stringBuilder = getHeaderStringBuilder(BENEFIT_HEADER);
-        List<Discount> discounts = benefit.getDiscounts();
-
-        if (!benefit.hasBenefit()) {
-            return stringBuilder.append(NOTHING_MESSAGE)
-                    .append(NEW_LINE)
-                    .toString();
-        }
-
-        discounts.stream()
-                .filter(Discount::hasDiscount)
-                .forEach(discount -> stringBuilder.append(formatOneDiscount(discount)));
-
-        return stringBuilder.toString();
-    }
-
-    private String formatOneDiscount(Discount discount) {
-        return String.format(
-                DISCOUNT_FORMAT,
-                discount.getLabel(),
-                formatIntegerToAmount(discount.getAmount())
-        ) + NEW_LINE;
-    }
-
     public String formatGift(List<MenuDto> menuDtos) {
         StringBuilder stringBuilder = getHeaderStringBuilder(GIFT_HEADER);
         if (menuDtos.isEmpty()) {
@@ -121,8 +89,37 @@ public class ConsoleOutputFormatter {
         }
         menuDtos.forEach(menuDto -> stringBuilder.append(formatMenu(menuDto))
                 .append(NEW_LINE));
-
         return stringBuilder.toString();
+    }
+
+    public String formatBenefits(Benefit benefit) {
+        StringBuilder stringBuilder = getHeaderStringBuilder(BENEFIT_HEADER);
+        List<Discount> discounts = benefit.getDiscounts();
+
+        if (!benefit.hasBenefit()) {
+            return stringBuilder.append(NOTHING_MESSAGE)
+                    .append(NEW_LINE)
+                    .toString();
+        }
+        discounts.stream()
+                .filter(Discount::hasDiscount)
+                .forEach(discount -> stringBuilder.append(formatOneDiscount(discount)));
+        return stringBuilder.toString();
+    }
+
+    private static String formatMenu(MenuDto menuDto) {
+        return String.format(
+                ORDERED_MENU_FORMAT,
+                menuDto.getMenuName(),
+                menuDto.getCount());
+    }
+
+    private String formatOneDiscount(Discount discount) {
+        return String.format(
+                DISCOUNT_FORMAT,
+                discount.getLabel(),
+                formatIntegerToAmount(discount.getAmount())
+        ) + NEW_LINE;
     }
 
     private String formatIntegerToAmount(int amount) {
