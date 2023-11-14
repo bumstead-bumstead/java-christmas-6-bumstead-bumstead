@@ -17,7 +17,7 @@ public class MenuSheet {
     }
 
     //메소드 이름이 너무 구체적, 종속적 
-    public static MenuSheet fromMenuDtoList(List<MenuDto> menuDtos) {
+    public static MenuSheet fromMenuDtos(List<MenuDto> menuDtos) {
         validate(menuDtos);
         Map<Menu, Integer> menuCount = parseMenuDtosToMap(menuDtos);
         return new MenuSheet(menuCount);

@@ -30,7 +30,7 @@ class MenuSheetTest {
                     MenuDto.fromConsoleInputFormat("제로콜라-3"),
                     MenuDto.fromConsoleInputFormat("티본스테이크-3")
             );
-            MenuSheet.fromMenuDtoList(menuDtos);
+            MenuSheet.fromMenuDtos(menuDtos);
         }
 
         @DisplayName("메뉴 입력이 중복된 경우 IllegalArgumentException을 발생시킨다.")
@@ -45,7 +45,7 @@ class MenuSheetTest {
 
             //when
             //then
-            assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
+            assertThatThrownBy(() -> MenuSheet.fromMenuDtos(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(MENU_INPUT_ERROR_MESSAGE);
         }
@@ -61,7 +61,7 @@ class MenuSheetTest {
             );
             //when
             //then
-            assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
+            assertThatThrownBy(() -> MenuSheet.fromMenuDtos(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(MENU_NUMBER_ERROR_MESSAGE);
         }
@@ -77,7 +77,7 @@ class MenuSheetTest {
             );
             //when
             //then
-            assertThatThrownBy(() -> MenuSheet.fromMenuDtoList(menuDtos))
+            assertThatThrownBy(() -> MenuSheet.fromMenuDtos(menuDtos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(MENU_COMBINATION_ERROR_MESSAGE);
         }
@@ -98,7 +98,7 @@ class MenuSheetTest {
                     MenuDto.fromConsoleInputFormat("타파스-3"),
                     MenuDto.fromConsoleInputFormat("아이스크림-5")
             );
-            menuSheet = MenuSheet.fromMenuDtoList(menuDtos);
+            menuSheet = MenuSheet.fromMenuDtos(menuDtos);
         }
 
         @DisplayName("각 카테고리의 음식 개수를 반환한다.")

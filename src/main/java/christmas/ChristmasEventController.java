@@ -51,7 +51,7 @@ public class ChristmasEventController {
 
     private MenuSheet getMenuSheet() {
         List<MenuDto> menuInput = inputView.readMenu();
-        return MenuSheet.fromMenuDtoList(menuInput);
+        return MenuSheet.fromMenuDtos(menuInput);
     }
 
     private Day getDayOfVisit() {
