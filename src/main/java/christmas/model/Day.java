@@ -15,7 +15,7 @@ public class Day {
     private static final Map<Integer, Day> dayCache = new HashMap<>();
 
     static {
-        IntStream.range(DAY_START, DAY_END + 1) //todo : daystep으로 상수뽑기
+        IntStream.range(DAY_START, DAY_END + 1)
                 .forEach(dayNumber -> dayCache.put(dayNumber, new Day(dayNumber)));
     }
 

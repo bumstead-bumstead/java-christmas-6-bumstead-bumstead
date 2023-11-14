@@ -5,8 +5,10 @@ import christmas.model.Day;
 import static christmas.config.EventConfig.*;
 
 public class DDayDiscount extends Benefit {
+    public static final String D_DAY_DISCOUNT_LABEL = "크리스마스 디데이 할인";
+
     private DDayDiscount(int amount) {
-        super(amount, "크리스마스 디데이 할인");
+        super(amount, D_DAY_DISCOUNT_LABEL);
     }
 
     public static Benefit of(Day day) {

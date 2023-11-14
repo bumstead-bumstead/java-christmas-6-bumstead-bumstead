@@ -7,8 +7,10 @@ import christmas.model.MenuSheet;
 import static christmas.config.EventConfig.EVENT_YEAR;
 
 public class WeekdayDiscount extends Benefit {
+    public static final String WEEKDAY_DISCOUNT_LABEL = "평일 할인";
+
     protected WeekdayDiscount(int amount) {
-        super(amount, "평일 할인");
+        super(amount, WEEKDAY_DISCOUNT_LABEL);
     }
 
     public static WeekdayDiscount of(Day day, MenuSheet menuSheet) {
