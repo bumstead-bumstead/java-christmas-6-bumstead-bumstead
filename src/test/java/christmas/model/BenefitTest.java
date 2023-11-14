@@ -29,7 +29,7 @@ class BenefitTest {
             day = Mockito.mock(Day.class);
         }
 
-        @DisplayName("총 가격이 120_000을 넘으면, gift는 Champagne이다.")
+        @DisplayName("총 가격이 120_000을 넘으면, 증정품이 주어진다.")
         @Test
         void gift() {
             //given
@@ -37,10 +37,10 @@ class BenefitTest {
                     .thenReturn(120_001);
             benefit = Benefit.of(day, menuSheet);
             //when
-            Menu gift = benefit.getGift();
+            Gift gift = benefit.getGift();
             //then
-            assertThat(gift)
-                    .isEqualTo(Menu.CHAMPAGNE);
+            assertThat(gift.calculateTotalPrice())
+                    .isGreaterThan(0);
         }
 
         @DisplayName("Day가 주말인 경우 weekendDiscount는 (메인 메뉴의 개수 * 2023)이다.")
@@ -54,10 +54,20 @@ class BenefitTest {
                     .thenReturn(mainMenuCount);
             benefit = Benefit.of(day, menuSheet);
             //when
-            int weekendDiscount = benefit.getWeekendDiscount();
+            findDiscountAmountByLabel(benefit, "주말 할인");
+            int weekendDiscount = findDiscountAmountByLabel(benefit, "주말 할인");
             //then
             assertThat(weekendDiscount)
                     .isEqualTo(mainMenuCount * EVENT_YEAR);
+        }
+
+        private int findDiscountAmountByLabel(Benefit benefit, String label) {
+            return benefit.getDiscounts()
+                    .stream()
+                    .filter(discount -> discount.getLabel().equals(label))
+                    .findFirst()
+                    .get()
+                    .getAmount();
         }
 
         @DisplayName("Day가 평일인 경우 weekdayDiscount는 (디저트 메뉴의 개수 * 2023)이다.")
@@ -71,7 +81,7 @@ class BenefitTest {
                     .thenReturn(dessertMenuCount);
             benefit = Benefit.of(day, menuSheet);
             //when
-            int weekdayDiscount = benefit.getWeekdayDiscount();
+            int weekdayDiscount = findDiscountAmountByLabel(benefit, "평일 할인");
             //then
             assertThat(weekdayDiscount)
                     .isEqualTo(dessertMenuCount * EVENT_YEAR);
@@ -85,13 +95,13 @@ class BenefitTest {
                     .thenReturn(true);
             benefit = Benefit.of(day, menuSheet);
             //when
-            int specialDiscount = benefit.getSpecialDiscount();
+            int specialDiscount = findDiscountAmountByLabel(benefit, "특별 할인");
             //then
             assertThat(specialDiscount)
                     .isEqualTo(SPECIAL_DISCOUNT);
         }
 
-        @DisplayName("총 주문금액이 10000 미만인 경우 gift = NO_FOOD이고, 모든 필드는 0이다.")
+        @DisplayName("총 주문금액이 10000 미만인 경우 gift가 주어지지 않고, 모든 할인은 0이다.")
         @Test
         void invalidTotalPayment() {
             //given
@@ -101,8 +111,8 @@ class BenefitTest {
             //then
             assertThat(benefit.getTotalDiscount())
                     .isEqualTo(0);
-            assertThat(benefit.getGift())
-                    .isEqualTo(Menu.NO_FOOD);
+            assertThat(benefit.getGift().calculateTotalPrice())
+                    .isEqualTo(0);
         }
 
         @DisplayName("디데이 할인은 1일부터 25일까지 적용되며, 1000 + 100*(day-1)이다.")
@@ -114,11 +124,10 @@ class BenefitTest {
                     .thenReturn(dayValue);
             benefit = Benefit.of(day, menuSheet);
             //when
-            int dDayDiscount = benefit.getDDayDiscount();
+            int dDayDiscount = findDiscountAmountByLabel(benefit, "크리스마스 디데이 할인");
             //then
             assertThat(dDayDiscount)
                     .isEqualTo(expectedDDayDiscount);
-
         }
 
         private static Stream<Arguments> provideDayAndDDayDiscount() {
@@ -131,7 +140,5 @@ class BenefitTest {
                     Arguments.of(31, 0)
             );
         }
-
     }
-
 }

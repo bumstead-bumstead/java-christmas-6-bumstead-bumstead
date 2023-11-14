@@ -45,7 +45,8 @@ public class ChristmasEventController {
     private void showResult(Day dayOfVisit, MenuSheet menuSheet, Benefit benefit) {
         outputView.printBenefitIntroduceMessage(dayOfVisit);
         outputView.printOrderedMenus(menuSheet.toMenuDtoList());
-        outputView.printBenefit(benefit);
+        outputView.printTotalPrice(menuSheet.calculateTotalPrice());
+        outputView.printBenefit(benefit, menuSheet);
     }
 
     private MenuSheet getMenuSheet() {

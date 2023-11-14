@@ -16,6 +16,7 @@ public class MenuSheet {
         this.menuCount = menuCount;
     }
 
+    //메소드 이름이 너무 구체적, 종속적 
     public static MenuSheet fromMenuDtoList(List<MenuDto> menuDtos) {
         validate(menuDtos);
         Map<Menu, Integer> menuCount = parseMenuDtosToMap(menuDtos);
@@ -27,6 +28,10 @@ public class MenuSheet {
                 .stream()
                 .map(MenuDto::fromMenuEntry)
                 .toList();
+    }
+
+    public static MenuSheet getGiftMenuSheet() {
+        return new MenuSheet(Map.of(DEFAULT_GIFT, NUMBER_OF_DEFAULT_GIFT));
     }
 
     public int getNumberOfMenu(FoodCategory foodCategory) {
