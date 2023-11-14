@@ -12,13 +12,13 @@ import static christmas.config.EventConfig.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-class BenefitTest {
+class BenefitHolderTest {
     @DisplayName("Benefit 객체를 생성할 때,")
     @Nested
     class instanceCreation {
         private MenuSheet menuSheet;
         private Day day;
-        private Benefit benefit;
+        private BenefitHolder benefitHolder;
 
         @BeforeEach
         void setup() {
@@ -35,9 +35,9 @@ class BenefitTest {
             //given
             when(menuSheet.calculateTotalPrice())
                     .thenReturn(120_001);
-            benefit = Benefit.of(day, menuSheet);
+            benefitHolder = BenefitHolder.of(day, menuSheet);
             //when
-            Gift gift = benefit.getGift();
+            Gift gift = benefitHolder.getGift();
             //then
             assertThat(gift.calculateTotalPrice())
                     .isGreaterThan(0);
@@ -52,17 +52,17 @@ class BenefitTest {
                     .thenReturn(true);
             when(menuSheet.getNumberOfMenu(FoodCategory.MAIN))
                     .thenReturn(mainMenuCount);
-            benefit = Benefit.of(day, menuSheet);
+            benefitHolder = BenefitHolder.of(day, menuSheet);
             //when
-            findDiscountAmountByLabel(benefit, "주말 할인");
-            int weekendDiscount = findDiscountAmountByLabel(benefit, "주말 할인");
+            findDiscountAmountByLabel(benefitHolder, "주말 할인");
+            int weekendDiscount = findDiscountAmountByLabel(benefitHolder, "주말 할인");
             //then
             assertThat(weekendDiscount)
                     .isEqualTo(mainMenuCount * EVENT_YEAR);
         }
 
-        private int findDiscountAmountByLabel(Benefit benefit, String label) {
-            return benefit.getDiscounts()
+        private int findDiscountAmountByLabel(BenefitHolder benefitHolder, String label) {
+            return benefitHolder.getDiscounts()
                     .stream()
                     .filter(discount -> discount.getLabel().equals(label))
                     .findFirst()
@@ -79,9 +79,9 @@ class BenefitTest {
                     .thenReturn(false);
             when(menuSheet.getNumberOfMenu(FoodCategory.DESSERT))
                     .thenReturn(dessertMenuCount);
-            benefit = Benefit.of(day, menuSheet);
+            benefitHolder = BenefitHolder.of(day, menuSheet);
             //when
-            int weekdayDiscount = findDiscountAmountByLabel(benefit, "평일 할인");
+            int weekdayDiscount = findDiscountAmountByLabel(benefitHolder, "평일 할인");
             //then
             assertThat(weekdayDiscount)
                     .isEqualTo(dessertMenuCount * EVENT_YEAR);
@@ -93,9 +93,9 @@ class BenefitTest {
             //given
             when(day.isComponentOf(STARRED_DAYS))
                     .thenReturn(true);
-            benefit = Benefit.of(day, menuSheet);
+            benefitHolder = BenefitHolder.of(day, menuSheet);
             //when
-            int specialDiscount = findDiscountAmountByLabel(benefit, "특별 할인");
+            int specialDiscount = findDiscountAmountByLabel(benefitHolder, "특별 할인");
             //then
             assertThat(specialDiscount)
                     .isEqualTo(SPECIAL_DISCOUNT);
@@ -107,11 +107,11 @@ class BenefitTest {
             //given
             when(menuSheet.calculateTotalPrice())
                     .thenReturn(9999);
-            benefit = Benefit.of(day, menuSheet);
+            benefitHolder = BenefitHolder.of(day, menuSheet);
             //then
-            assertThat(benefit.getTotalDiscount())
+            assertThat(benefitHolder.getTotalDiscount())
                     .isEqualTo(0);
-            assertThat(benefit.getGift().calculateTotalPrice())
+            assertThat(benefitHolder.getGift().calculateTotalPrice())
                     .isEqualTo(0);
         }
 
@@ -122,9 +122,9 @@ class BenefitTest {
             //given
             when(day.getDay())
                     .thenReturn(dayValue);
-            benefit = Benefit.of(day, menuSheet);
+            benefitHolder = BenefitHolder.of(day, menuSheet);
             //when
-            int dDayDiscount = findDiscountAmountByLabel(benefit, "크리스마스 디데이 할인");
+            int dDayDiscount = findDiscountAmountByLabel(benefitHolder, "크리스마스 디데이 할인");
             //then
             assertThat(dDayDiscount)
                     .isEqualTo(expectedDDayDiscount);

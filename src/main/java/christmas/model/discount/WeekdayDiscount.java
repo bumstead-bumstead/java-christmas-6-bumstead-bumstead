@@ -6,7 +6,7 @@ import christmas.model.MenuSheet;
 
 import static christmas.config.EventConfig.EVENT_YEAR;
 
-public class WeekdayDiscount extends Discount {
+public class WeekdayDiscount extends Benefit {
     protected WeekdayDiscount(int amount) {
         super(amount, "평일 할인");
     }
@@ -19,7 +19,7 @@ public class WeekdayDiscount extends Discount {
         return new WeekdayDiscount(0);
     }
 
-    public static Discount empty() {
+    public static Benefit empty() {
         return new WeekdayDiscount(0);
     }
 

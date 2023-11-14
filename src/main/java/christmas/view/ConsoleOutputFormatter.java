@@ -3,7 +3,7 @@ package christmas.view;
 import christmas.config.EventConfig;
 import christmas.dto.MenuDto;
 import christmas.model.*;
-import christmas.model.discount.Discount;
+import christmas.model.discount.Benefit;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -92,17 +92,17 @@ public class ConsoleOutputFormatter {
         return stringBuilder.toString();
     }
 
-    public String formatBenefits(Benefit benefit) {
+    public String formatBenefits(BenefitHolder benefitHolder) {
         StringBuilder stringBuilder = getHeaderStringBuilder(BENEFIT_HEADER);
-        List<Discount> discounts = benefit.getDiscounts();
+        List<Benefit> benefits = benefitHolder.getDiscounts();
 
-        if (!benefit.hasBenefit()) {
+        if (!benefitHolder.hasBenefit()) {
             return stringBuilder.append(NOTHING_MESSAGE)
                     .append(NEW_LINE)
                     .toString();
         }
-        discounts.stream()
-                .filter(Discount::hasDiscount)
+        benefits.stream()
+                .filter(Benefit::hasDiscount)
                 .forEach(discount -> stringBuilder.append(formatOneDiscount(discount)));
         return stringBuilder.toString();
     }
@@ -114,11 +114,11 @@ public class ConsoleOutputFormatter {
                 menuDto.getCount());
     }
 
-    private String formatOneDiscount(Discount discount) {
+    private String formatOneDiscount(Benefit benefit) {
         return String.format(
                 DISCOUNT_FORMAT,
-                discount.getLabel(),
-                formatIntegerToAmount(discount.getAmount())
+                benefit.getLabel(),
+                formatIntegerToAmount(benefit.getAmount())
         ) + NEW_LINE;
     }
 

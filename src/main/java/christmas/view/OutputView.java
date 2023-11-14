@@ -33,12 +33,12 @@ public class OutputView {
         System.out.println(MENU_INPUT_MESSAGE);
     }
 
-    public void printBenefit(Benefit benefit, MenuSheet menuSheet) {
-        System.out.println(consoleOutputFormatter.formatGift(benefit.getGift().toMenuDtoList()));
-        System.out.println(consoleOutputFormatter.formatBenefits(benefit));
-        System.out.println(consoleOutputFormatter.formatTotalBenefitPrice(benefit.getTotalBenefit()));
-        System.out.println(consoleOutputFormatter.formatAmountOfPayment(benefit.getTotalDiscount(), menuSheet.calculateTotalPrice()));
-        System.out.println(consoleOutputFormatter.formatEventBadge(benefit.getBadge()));
+    public void printBenefit(BenefitHolder benefitHolder, MenuSheet menuSheet) {
+        System.out.println(consoleOutputFormatter.formatGift(benefitHolder.getGift().toMenuDtoList()));
+        System.out.println(consoleOutputFormatter.formatBenefits(benefitHolder));
+        System.out.println(consoleOutputFormatter.formatTotalBenefitPrice(benefitHolder.getTotalBenefit()));
+        System.out.println(consoleOutputFormatter.formatAmountOfPayment(benefitHolder.getTotalDiscount(), menuSheet.calculateTotalPrice()));
+        System.out.println(consoleOutputFormatter.formatEventBadge(benefitHolder.getBadge()));
     }
 
     public void printOrderedMenus(List<MenuDto> menuDtos) {

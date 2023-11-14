@@ -1,6 +1,6 @@
 package christmas.model.discount;
 
-public abstract class Discount {
+public abstract class Benefit {
     private final int amount;
     private final String label;
 
@@ -12,7 +12,7 @@ public abstract class Discount {
         return label;
     }
 
-    protected Discount(int amount, String label) {
+    protected Benefit(int amount, String label) {
         this.amount = amount;
         this.label = label;
     }

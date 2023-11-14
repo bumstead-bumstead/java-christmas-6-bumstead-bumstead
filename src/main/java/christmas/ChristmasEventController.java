@@ -1,7 +1,7 @@
 package christmas;
 
 import christmas.dto.MenuDto;
-import christmas.model.Benefit;
+import christmas.model.BenefitHolder;
 import christmas.model.Day;
 import christmas.model.MenuSheet;
 import christmas.view.ConsoleInputReader;
@@ -25,9 +25,9 @@ public class ChristmasEventController {
         outputView.printStartMessage();
         Day dayOfVisit = inputDayOfVisit();
         MenuSheet menuSheet = inputMenus();
-        Benefit benefit = Benefit.of(dayOfVisit, menuSheet);
+        BenefitHolder benefitHolder = BenefitHolder.of(dayOfVisit, menuSheet);
 
-        showResult(dayOfVisit, menuSheet, benefit);
+        showResult(dayOfVisit, menuSheet, benefitHolder);
     }
 
     private MenuSheet inputMenus() {
@@ -42,11 +42,11 @@ public class ChristmasEventController {
         return dayOfVisit;
     }
 
-    private void showResult(Day dayOfVisit, MenuSheet menuSheet, Benefit benefit) {
+    private void showResult(Day dayOfVisit, MenuSheet menuSheet, BenefitHolder benefitHolder) {
         outputView.printBenefitIntroduceMessage(dayOfVisit);
         outputView.printOrderedMenus(menuSheet.toMenuDtoList());
         outputView.printTotalPrice(menuSheet.calculateTotalPrice());
-        outputView.printBenefit(benefit, menuSheet);
+        outputView.printBenefit(benefitHolder, menuSheet);
     }
 
     private MenuSheet getMenuSheet() {
