@@ -18,7 +18,6 @@ public class MenuSheet {
 
     public static MenuSheet fromMenuDtoList(List<MenuDto> menuDtos) {
         validate(menuDtos);
-
         Map<Menu, Integer> menuCount = parseMenuDtosToMap(menuDtos);
         return new MenuSheet(menuCount);
     }
@@ -30,7 +29,7 @@ public class MenuSheet {
                 .toList();
     }
 
-    public int getNumberOfMenuCategory(FoodCategory foodCategory) {
+    public int getNumberOfMenu(FoodCategory foodCategory) {
         return menuCount.keySet()
                 .stream()
                 .filter(menu -> menu.isKindOf(foodCategory))
@@ -78,13 +77,13 @@ public class MenuSheet {
     }
 
     private static void validateTotalNumber(List<MenuDto> menuDtos) {
-        int totalMenuCont = menuDtos
+        int totalMenuCount = menuDtos
                 .stream()
                 .map(MenuDto::getCount)
                 .mapToInt(Integer::intValue)
                 .sum();
 
-        if (totalMenuCont > MAXIMUM_NUMBER_OF_MENU) {
+        if (totalMenuCount > MAXIMUM_NUMBER_OF_MENU) {
             throw new IllegalArgumentException(MENU_NUMBER_ERROR_MESSAGE);
         }
     }

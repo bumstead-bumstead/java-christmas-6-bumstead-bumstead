@@ -50,7 +50,7 @@ class BenefitTest {
             int mainMenuCount = 2;
             when(day.isWeekend())
                     .thenReturn(true);
-            when(menuSheet.getNumberOfMenuCategory(FoodCategory.MAIN))
+            when(menuSheet.getNumberOfMenu(FoodCategory.MAIN))
                     .thenReturn(mainMenuCount);
             benefit = Benefit.of(day, menuSheet);
             //when
@@ -67,7 +67,7 @@ class BenefitTest {
             int dessertMenuCount = 3;
             when(day.isWeekend())
                     .thenReturn(false);
-            when(menuSheet.getNumberOfMenuCategory(FoodCategory.DESSERT))
+            when(menuSheet.getNumberOfMenu(FoodCategory.DESSERT))
                     .thenReturn(dessertMenuCount);
             benefit = Benefit.of(day, menuSheet);
             //when

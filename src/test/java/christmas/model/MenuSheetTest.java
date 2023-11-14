@@ -106,7 +106,7 @@ class MenuSheetTest {
         @ParameterizedTest
         void numberOfMenuCategory(FoodCategory foodCategory, int expectedNumber) {
             //when
-            int actualNumber = menuSheet.getNumberOfMenuCategory(foodCategory); //208_500 -> 233500
+            int actualNumber = menuSheet.getNumberOfMenu(foodCategory); //208_500 -> 233500
 
             //then
             assertThat(actualNumber)

@@ -56,14 +56,14 @@ public class Benefit {
 
     private static int calculateWeekdayDiscount(Day day, MenuSheet menuSheet) {
         if (!day.isWeekend()) {
-            return menuSheet.getNumberOfMenuCategory(FoodCategory.DESSERT) * EVENT_YEAR;
+            return menuSheet.getNumberOfMenu(FoodCategory.DESSERT) * EVENT_YEAR;
         }
         return 0;
     }
 
     private static int calculateWeekendDiscount(Day day, MenuSheet menuSheet) {
         if (day.isWeekend()) {
-            return menuSheet.getNumberOfMenuCategory(FoodCategory.MAIN) * EVENT_YEAR;
+            return menuSheet.getNumberOfMenu(FoodCategory.MAIN) * EVENT_YEAR;
         }
         return 0;
     }
