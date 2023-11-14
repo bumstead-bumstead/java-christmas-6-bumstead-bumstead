@@ -54,3 +54,24 @@
 - 받은 혜택이 20,000원 이상인 경우 산타
 - 받은 혜택이 10,000원 이상인 경우 트리
 - 받은 혜택이 5,000원 이상인 경우 별
+
+---
+
+## 클래스 설명
+- `Application` : 어플리케이션의 진입점
+- `ChristMasEventController` : I/O에 데이터를 전달하는 등 게임 진행
+### Model
+ - `Benefit` : 각각의 할인/증정 혜택 역할을 하는 추상 클래스  
+ - `Badge` : 이벤트 배지 관련 역할 enum
+ - `BenefitHolder` : Benefit, Gift에 의존하여 혜택 데이터를 관리, 반환하는 클래스
+ - `Day` : 일자 관련 역할 클래스 
+ - `FoodCategory` : 음식의 카테고리를 나타내는 enum
+ - `Gift` : 증정품을 나타내는 일급 컬렉션 클래스
+ - `Menu` : 음식 메뉴를 나타내는 enum
+ - `MenuSheet` : 주문한 메뉴를 나타내는 일급 컬렉션 클래스
+
+### I/O
+ - `ConsoleInputReader` : 콘솔 inputStream으로부터 읽어오는 클래스
+ - `ConsoleOutputFormatter` : 콘솔 출력 형식에 맞게 데이터를 포매팅하는 클래스
+ - `InputView` : 입력을 처리하는 클래스
+ - `OutputView` : 출력을 처리하는 클래스
