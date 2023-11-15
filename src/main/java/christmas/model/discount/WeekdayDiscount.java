@@ -24,5 +24,4 @@ public class WeekdayDiscount extends Benefit {
     public static Benefit empty() {
         return new WeekdayDiscount(0);
     }
-
 }
