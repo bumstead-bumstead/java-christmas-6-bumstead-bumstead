@@ -2,11 +2,9 @@ package christmas.model.benefit;
 
 import christmas.model.Day;
 
-import static christmas.config.EventConfig.SPECIAL_DISCOUNT;
-import static christmas.config.EventConfig.STARRED_DAYS;
+import static christmas.config.EventConfig.*;
 
 public class SpecialDiscount extends Benefit {
-    public static final String SPECIAL_DISCOUNT_LABEL = "특별 할인";
 
     private SpecialDiscount(int amount) {
         super(amount, SPECIAL_DISCOUNT_LABEL);

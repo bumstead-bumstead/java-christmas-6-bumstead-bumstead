@@ -2,8 +2,9 @@ package christmas.model.benefit;
 
 import christmas.model.Gift;
 
+import static christmas.config.EventConfig.GIFT_BENEFIT_LABEL;
+
 public class GiftBenefit extends Benefit {
-    public static final String GIFT_BENEFIT_LABEL = "증정 이벤트";
 
     protected GiftBenefit(int amount) {
         super(amount, GIFT_BENEFIT_LABEL);

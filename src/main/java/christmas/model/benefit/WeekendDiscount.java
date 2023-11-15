@@ -5,10 +5,9 @@ import christmas.model.FoodCategory;
 import christmas.model.MenuSheet;
 
 import static christmas.config.EventConfig.EVENT_YEAR;
+import static christmas.config.EventConfig.WEEKEND_DISCOUNT_LABEL;
 
 public class WeekendDiscount extends Benefit {
-    public static final String WEEKEND_DISCOUNT_LABEL = "주말 할인";
-
     protected WeekendDiscount(int amount) {
         super(amount, WEEKEND_DISCOUNT_LABEL);
     }

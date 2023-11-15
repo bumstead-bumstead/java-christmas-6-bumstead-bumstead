@@ -23,4 +23,10 @@ public class EventConfig {
     public static final String MENU_SEPARATOR = ",";
     public static final String MENU_COUNT_SEPARATOR = "-";
     public static final String MENU_INPUT_REGEX = "^[^-]+-\\d+$";
+    public static final String D_DAY_DISCOUNT_LABEL = "크리스마스 디데이 할인";
+    public static final String GIFT_BENEFIT_LABEL = "증정 이벤트";
+    public static final String SPECIAL_DISCOUNT_LABEL = "특별 할인";
+    public static final String WEEKDAY_DISCOUNT_LABEL = "평일 할인";
+    public static final String WEEKEND_DISCOUNT_LABEL = "주말 할인";
+
 }
