@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.benefit;
 
 import christmas.model.Day;
 import christmas.model.FoodCategory;
@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 
 import static christmas.config.EventConfig.EVENT_YEAR;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class WeekendDiscountTest {

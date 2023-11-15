@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.dto.MenuDto;
 import christmas.model.*;
+import christmas.model.benefit.BenefitHolder;
 
 import java.util.List;
 

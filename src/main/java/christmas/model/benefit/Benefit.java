@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.benefit;
 
 public abstract class Benefit {
     private final int amount;

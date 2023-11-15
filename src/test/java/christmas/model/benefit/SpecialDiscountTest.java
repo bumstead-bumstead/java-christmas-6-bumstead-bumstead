@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.benefit;
 
 import christmas.model.Day;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SpecialDiscountTest {
     @DisplayName("날짜에 대한 특별 할인을 갖는다.")

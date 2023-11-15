@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.benefit;
 
 import christmas.model.Day;
 import org.junit.jupiter.api.DisplayName;

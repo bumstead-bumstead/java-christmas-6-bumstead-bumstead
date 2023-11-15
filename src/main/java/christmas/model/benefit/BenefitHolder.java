@@ -1,6 +1,10 @@
-package christmas.model;
+package christmas.model.benefit;
 
-import christmas.model.discount.*;
+import christmas.model.Badge;
+import christmas.model.Day;
+import christmas.model.Gift;
+import christmas.model.MenuSheet;
+
 import java.util.List;
 
 import static christmas.config.EventConfig.*;

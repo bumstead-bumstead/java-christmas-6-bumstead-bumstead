@@ -1,7 +1,7 @@
 package christmas;
 
 import christmas.dto.MenuDto;
-import christmas.model.BenefitHolder;
+import christmas.model.benefit.BenefitHolder;
 import christmas.model.Day;
 import christmas.model.MenuSheet;
 import christmas.view.ConsoleInputReader;

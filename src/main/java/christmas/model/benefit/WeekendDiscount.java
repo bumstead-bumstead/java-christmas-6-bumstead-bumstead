@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.benefit;
 
 import christmas.model.Day;
 import christmas.model.FoodCategory;

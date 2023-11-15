@@ -54,4 +54,11 @@ public class Day {
     private static boolean isInvalidDay(int day) {
         return day < DAY_START || day > DAY_END;
     }
+
+    @Override
+    public String toString() {
+        return "Day{" +
+                "day=" + day +
+                '}';
+    }
 }

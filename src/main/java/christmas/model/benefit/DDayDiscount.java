@@ -1,4 +1,4 @@
-package christmas.model.discount;
+package christmas.model.benefit;
 
 import christmas.model.Day;
 
@@ -11,7 +11,7 @@ public class DDayDiscount extends Benefit {
         super(amount, D_DAY_DISCOUNT_LABEL);
     }
 
-    public static Benefit of(Day day) {
+    public static DDayDiscount of(Day day) {
         if (day.getDay() > END_DAY_OF_D_DAY_EVENT) {
             return new DDayDiscount(0);
         }

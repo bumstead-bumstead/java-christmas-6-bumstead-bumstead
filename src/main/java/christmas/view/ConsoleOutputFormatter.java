@@ -3,7 +3,8 @@ package christmas.view;
 import christmas.config.EventConfig;
 import christmas.dto.MenuDto;
 import christmas.model.*;
-import christmas.model.discount.Benefit;
+import christmas.model.benefit.Benefit;
+import christmas.model.benefit.BenefitHolder;
 
 import java.text.DecimalFormat;
 import java.util.List;
